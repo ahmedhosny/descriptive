@@ -1,0 +1,35 @@
+
+.parent {
+  position: absolute;
+  padding: 0px;
+  width:100%;
+  height:100%;
+  background-color: #d3d3d3;
+}
+.props {
+  overflow: auto;
+}
+.component {
+  border: 0px solid #38afd4;
+  border-radius: 5px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.item {
+  background-color: #f06292;
+  line-height: 30px;
+  padding: 0 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.axis-x .item {
+  display: inline-block;
+  text-align: center;
+}
+.axis-x .component {
+  white-space: nowrap;
+}
+
+.even {
+  background-color: #c2185b;
+}
