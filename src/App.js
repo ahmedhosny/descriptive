@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {MuiThemeProvider} from 'material-ui/styles';
-import {theme} from './theme';
-import Header from './Header';
-import Scroll from './Scroll'
+import {theme} from './helpers/theme';
+import Header from './components/Header';
+import Scroll from './components/Scroll'
 import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
 import {AutoSizer} from 'react-virtualized';
-import AddIcon from 'material-ui-icons/Add';
 
 
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactList from 'react-list';
-import {generateRandomList} from './demo/utils';
+import {generateRandomList} from '../helpers/utils';
 import './Scroll.css'
 
 export default class Scroll extends React.Component {
