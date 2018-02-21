@@ -355,7 +355,7 @@ _theme['content'] = {
   backgroundColor: _theme.palette.primary['100'],
 };
 _theme['footer'] = {
-  height:'100px',
+  height: '100px',
   width: '100px',
   backgroundColor: _theme.palette.primary['200'],
 };

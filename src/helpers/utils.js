@@ -1,10 +1,11 @@
 /**
  * Generate random data for use in examples.
+ * @return {Array} Array of dummy data.
  */
 export function generateRandomList() {
   const list = [];
   const count = 300;
-  for (var i = 0; i < count; i++) {
+  for (let i = 0; i < count; i++) {
     const random = loremIpsum[i % loremIpsum.length];
     const randoms = [random];
 
@@ -188,8 +189,10 @@ const loremIpsum = [
   'Nulla ut leo vestibulum, ultricies sapien ac, pellentesque dolor.',
   'Etiam ultricies maximus tempus.',
   'Donec dignissim mi ac libero feugiat, vitae lacinia odio viverra.',
-  'Curabitur condimentum tellus sit amet neque posuere, condimentum tempus purus eleifend.',
-  'Donec tempus, augue id hendrerit pretium, mauris leo congue nulla, ac iaculis erat nunc in dolor.',
+  'Curabitur condimentum tellus sit amet neque posuere, condimentum tempus' +
+  'purus eleifend.',
+  'Donec tempus, augue id hendrerit pretium, mauris leo congue nulla, ac' +
+  'iaculis erat nunc in dolor.',
   'Praesent vel lectus venenatis, elementum mauris vitae, ullamcorper nulla.',
   'Maecenas non diam cursus, imperdiet massa eget, pellentesque ex.',
   'Vestibulum luctus risus vel augue auctor blandit.',
