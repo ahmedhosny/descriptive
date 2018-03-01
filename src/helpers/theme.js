@@ -349,6 +349,7 @@ let _theme = {
 _theme['root'] = {
   background: '#d3d3d3',
   height: '100%',
+  flexGrow: 1,
 };
 _theme['content'] = {
   marginTop: '90px',
