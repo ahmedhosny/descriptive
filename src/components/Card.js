@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withTheme} from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
-import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
-import './Card.css';
+import glamorous from 'glamorous';
+// import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
+
+const Schematic = glamorous.img({
+  borderRadius: '2px 2px 0 0',
+});
+const _Paper = glamorous(Paper)({
+  marginRight: 10,
+  marginBottom: 10,
+  display: 'inline-block',
+});
 
 /**
  * The Card component
@@ -30,26 +39,24 @@ class _Card extends Component {
     randomWidth.toString() + 'x150';
     console.log(imgURL);
     return (
-      <Paper
-        className={'item'}
+      <_Paper
         style={
           {width: `${randomWidth}px`,
           height: `${this.props.height}px`}
         }
       >
-        <img
-        style={theme['schematic']}
+        <Schematic
         alt="some alt"
         src={imgURL}
         />
         <h2>{this.props.data.name}</h2>
         {this.props.data.random}
-      </Paper>
+      </_Paper>
 
 
     );
   }
-}
+};
 _Card.propTypes = {
   theme: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
