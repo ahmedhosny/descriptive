@@ -11,18 +11,6 @@
   background-color: #f7f7f7;
   -webkit-overflow-scrolling: touch;
 }
-.item {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.axis-x .item {
-  display: inline-block;
-  text-align: center;
-}
 .axis-x .component {
   white-space: nowrap;
-}
-
-.even {
-  background-color: #c2185b;
 }

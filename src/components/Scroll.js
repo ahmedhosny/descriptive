@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {withTheme} from 'material-ui/styles';
 import ReactList from 'react-list';
 import {generateRandomList} from '../helpers/utils';
+import Card from './Card';
 import times from 'lodash/times';
 import './Scroll.css';
 
@@ -31,25 +32,18 @@ class Scroll extends Component {
   }
 
   /**
-   * Renders a single item at a time.
+   * Renders a single card at a time.
    * @param  {Number} index Starts from zero
    * @param  {Number} key   key
    * @return {ReactElement} A card
    */
   returnItems(index, key) {
     return (
-      <div
+      <Card
         key={key}
-        className={'item' + (index % 2 ? '' : ' even')}
-        style={
-          {width: `${Math.random() * (600 - 400) + 400}px`,
-          height: `${dims.minRowHeight-10}px`,
-          backgroundColor: `${this.state.data[index].color}`}
-        }
-      >
-        <h2>{this.state.data[index].name}</h2>
-        {this.state.data[index].random}
-      </div>
+        data={this.state.data[index]}
+        height={dims.minRowHeight-10}
+      />
     );
   }
 
