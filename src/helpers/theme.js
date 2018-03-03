@@ -360,6 +360,9 @@ _theme['footer'] = {
   width: '100px',
   backgroundColor: _theme.palette.primary['200'],
 };
+_theme['schematic'] = {
+  backgroundColor: _theme.palette.primary['200'],
+};
 // _theme['viewer'] = {
 //   backgroundColor: _theme.palette.primary['50'],
 //   height: 600,
