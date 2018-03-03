@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {withTheme} from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
 import glamorous from 'glamorous';
-// import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
+import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
-const Schematic = glamorous.img({
+const _CardMedia = glamorous(CardMedia)({
   borderRadius: '2px 2px 0 0',
+  height: 150,
 });
-const _Paper = glamorous(Paper)({
-  marginRight: 10,
-  marginBottom: 10,
+const _div = glamorous.div({
+  marginRight: 20,
+  marginBottom: 20,
   display: 'inline-block',
 });
 
@@ -33,33 +34,47 @@ class _Card extends Component {
    * @return {ReactElement}
    */
   render() {
-    const theme = this.props.theme;
-    const randomWidth = Math.floor(Math.random() * (600 - 400) + 400);
+    const randomWidth = Math.floor(Math.random() * (600 - 400) + 200);
     const imgURL = 'http://via.placeholder.com/' +
     randomWidth.toString() + 'x150';
-    console.log(imgURL);
     return (
-      <_Paper
-        style={
-          {width: `${randomWidth}px`,
-          height: `${this.props.height}px`}
-        }
+      <_div
+      style={
+        {width: `${randomWidth}px`,
+        height: `${this.props.height}px`}
+      }
       >
-        <Schematic
-        alt="some alt"
-        src={imgURL}
-        />
-        <h2>{this.props.data.name}</h2>
-        {this.props.data.random}
-      </_Paper>
-
-
+        <Card>
+          <_CardMedia
+            image={imgURL}
+            title="some title"
+          />
+          <CardContent
+          style={
+            {width: `${randomWidth-32}px`,
+            whiteSpace: 'normal',
+            height: 60} // hardcoded
+          }
+          >
+            <Typography variant="headline" component="h2">
+              {this.props.data.name}
+            </Typography>
+            <Typography component="p">
+              {this.props.data.random}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" color="primary">
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+      </_div>
     );
   }
 };
 _Card.propTypes = {
-  theme: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
 };
-export default withTheme()(_Card);
+export default _Card;
