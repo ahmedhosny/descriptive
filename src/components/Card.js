@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withTheme} from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
-import './_Card.css';
+import './Card.css';
 
 /**
  * The Card component

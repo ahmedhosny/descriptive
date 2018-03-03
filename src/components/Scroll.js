@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withTheme} from 'material-ui/styles';
 import ReactList from 'react-list';
 import {generateRandomList} from '../helpers/utils';
-import _Card from './_Card';
+import Card from './Card';
 import times from 'lodash/times';
 import './Scroll.css';
 
@@ -39,7 +39,7 @@ class Scroll extends Component {
    */
   returnItems(index, key) {
     return (
-      <_Card
+      <Card
         key={key}
         data={this.state.data[index]}
         height={dims.minRowHeight-10}
