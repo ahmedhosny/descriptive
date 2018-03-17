@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
@@ -21,12 +21,12 @@ class ScrollButton extends Component {
   render() {
     return (
       <SDiv>
-        <Button variant="fab" color="primary">
+        <Button variant="fab" color="primary" mini={true}>
           <AddIcon />
         </Button>
       </SDiv>
     );
   }
 }
-ScrollButton.propTypes = {};
+// ScrollButton.propTypes = {};
 export default ScrollButton;

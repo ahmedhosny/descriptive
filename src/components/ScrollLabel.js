@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 
 const SDiv = glamorous.div({
@@ -10,18 +10,10 @@ const SDiv = glamorous.div({
 });
 
 /**
- * The Card component
+ * The Label component
  * @type {Object}
  */
 class ScrollLabel extends Component {
-  /**
-   * Constructs the Scroll using height prop.
-   * @param  {Number} props Includes Height..
-   */
-  // constructor(props) {
-  //   super(props);
-  // }
-
   /**
    * Render
    * @return {ReactElement}
@@ -30,5 +22,5 @@ class ScrollLabel extends Component {
     return <SDiv />;
   }
 }
-ScrollLabel.propTypes = {};
+// ScrollLabel.propTypes = {};
 export default ScrollLabel;

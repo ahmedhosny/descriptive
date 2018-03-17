@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
-import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
+import Card, {CardContent, CardMedia} from 'material-ui/Card'; // CardActions,
 import ScrollLabel from './ScrollLabel';
 import ScrollButton from './ScrollButton';
 import Typography from 'material-ui/Typography';
 import times from 'lodash/times';
 
+const dims = {
+  cardNonMediaHeight: 159,
+};
 const SDiv = glamorous.div({
   marginRight: 20,
   marginBottom: 20,
@@ -14,7 +17,6 @@ const SDiv = glamorous.div({
 });
 const SCardMedia = glamorous(CardMedia)({
   borderRadius: '2px 2px 0 0',
-  height: 200,
 });
 const SCardContentLabels = glamorous(CardContent)({
   backgroundColor: '#fff000',
@@ -28,7 +30,7 @@ const SCardContentText = glamorous(CardContent)({
 const SButtonsDiv = glamorous.div({
   position: 'absolute',
   backgroundColor: '#696969',
-  top: -28,
+  top: -20,
   right: 16,
 });
 
@@ -42,14 +44,19 @@ class ScrollCard extends Component {
    * @return {ReactElement}
    */
   render() {
+    const imageHeight = this.props.height - dims.cardNonMediaHeight;
+    const imageWidth = parseInt(imageHeight * this.props.ratio, 10);
     const imgURL =
-      'http://via.placeholder.com/' + this.props.width.toString() + 'x200';
+      'http://via.placeholder.com/' +
+      imageWidth.toString() +
+      'x' +
+      imageHeight.toString();
 
+    // temporary
     let labels = [];
     times(4, (key) => {
       labels.push(<ScrollLabel key={key} />);
     });
-
     let buttons = [];
     times(2, (key) => {
       buttons.push(<ScrollButton key={key} />);
@@ -58,12 +65,18 @@ class ScrollCard extends Component {
     return (
       <SDiv
         style={{
-          width: `${this.props.width}px`,
+          width: `${imageWidth}px`,
           height: `${this.props.height}px`,
         }}
       >
         <Card>
-          <SCardMedia image={imgURL} title="some title" />
+          <SCardMedia
+            image={imgURL}
+            title="some title"
+            style={{
+              height: `${imageHeight}px`,
+            }}
+          />
           <SCardContentLabels>
             {labels}
             <SButtonsDiv>{buttons}</SButtonsDiv>
@@ -82,6 +95,6 @@ class ScrollCard extends Component {
 ScrollCard.propTypes = {
   data: PropTypes.object.isRequired,
   height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  ratio: PropTypes.number.isRequired,
 };
 export default ScrollCard;

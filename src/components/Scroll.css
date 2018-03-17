@@ -1,7 +1,7 @@
-
 .parent {
   position: absolute;
   padding: 0px;
+  min-height: 400px;
 }
 .props {
   overflow: auto;

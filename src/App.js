@@ -26,32 +26,25 @@ export class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <AutoSizer
-        onResize={this._onResize}
-        >
+        <AutoSizer onResize={this._onResize}>
           {({width, height}) =>
             width === 0 || height === 0 ? null : (
-            <div style={theme.root}>
-              <Grid container spacing={0}>
-                {/* AppBar */}
-                <Grid item xs={12}>
-                  <Header />
+              <div style={theme.root}>
+                <Grid container spacing={0}>
+                  {/* AppBar */}
+                  <Grid item xs={12}>
+                    <Header />
+                  </Grid>
+                  {/* scroll */}
+                  <Grid item xs={12}>
+                    <Scroll viewportWidth={width} viewportHeight={height} />
+                  </Grid>
+                  {/* footer */}
+                  <Grid item xs={12}>
+                    <div className="footer">this is the footerHeight</div>
+                  </Grid>
                 </Grid>
-                {/* mecano */}
-                <Grid item xs={12}>
-                  <Scroll
-                    viewportWidth={width}
-                    viewportHeight={height}
-                  />
-                </Grid>
-                {/* footer */}
-                <Grid item xs={12}>
-                  <div className="footer">
-                    this is the footerHeight
-                  </div>
-                </Grid>
-              </Grid>
-            </div>
+              </div>
             )
           }
         </AutoSizer>
@@ -60,7 +53,6 @@ export class App extends Component {
   }
 }
 export default App;
-
 
 //
 //

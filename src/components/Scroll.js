@@ -12,12 +12,20 @@ const dims = {
   paddingLeft: 25,
   footerHeight: 80,
   scrollBarHeight: 20, // exagerated by 5 px
-  minRowHeight: 300, // includes 10px for spacing
+  minCardHeight: 300,
+  cardMargin: 20,
 };
 
+// temporary widths and heights to simulate images of different aspect ratios.
 let widths = [];
+let heights = [];
+let ratios = [];
 times(300, (key) => {
-  widths.push(Math.floor(Math.random() * (600 - 400) + 600));
+  const width = Math.floor(Math.random() * (600 - 400) + 450);
+  const height = Math.floor(Math.random() * (600 - 400) + 200);
+  widths.push(width);
+  heights.push(height);
+  ratios.push(width / height);
 });
 
 /**
@@ -41,15 +49,16 @@ class Scroll extends Component {
    * Renders a single card at a time.
    * @param  {Number} index Starts from zero
    * @param  {Number} key   key
+   * @param  {Number} netScrollHeight   netScrollHeight
    * @return {ReactElement} A card
    */
-  returnItems(index, key) {
+  returnItems(index, key, netScrollHeight) {
     return (
       <ScrollCard
         key={key}
         data={this.state.data[index]}
-        height={dims.minRowHeight - 10}
-        width={widths[index]}
+        height={netScrollHeight}
+        ratio={ratios[index]}
       />
     );
   }
@@ -60,11 +69,14 @@ class Scroll extends Component {
    */
   render() {
     const headerHeight = this.props.viewportWidth >= 600 ? 64 : 56;
-    const scrollHeight =
-      this.props.viewportHeight - headerHeight - dims.paddingTop;
-    const netScrollHeight =
+    const viewportHeight =
+      this.props.viewportHeight >= 600 ? this.props.viewportHeight : 600;
+    const scrollHeight = viewportHeight - headerHeight - dims.paddingTop;
+    let netScrollHeight =
       scrollHeight - dims.footerHeight - dims.scrollBarHeight;
-    const rows = Math.floor(netScrollHeight / dims.minRowHeight);
+    const rows = Math.floor(netScrollHeight / dims.minCardHeight);
+    netScrollHeight = netScrollHeight - (rows - 1) * dims.cardMargin;
+
     console.log(
       'RERENDERED: scrollHeight; ',
       scrollHeight,
@@ -80,7 +92,9 @@ class Scroll extends Component {
         <ReactList
           key={key}
           axis={'x'}
-          itemRenderer={this.returnItems}
+          itemRenderer={(index, key, nsh) =>
+            this.returnItems(index, key, parseInt(netScrollHeight / rows, 10))
+          }
           length={this.state.data.length}
         />
       );
