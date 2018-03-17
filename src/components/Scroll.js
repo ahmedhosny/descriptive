@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {withTheme} from 'material-ui/styles';
 import ReactList from 'react-list';
 import {generateRandomList} from '../helpers/utils';
-import Card from './Card';
+import ScrollCard from './ScrollCard';
 import times from 'lodash/times';
 import './Scroll.css';
 
@@ -14,6 +14,12 @@ const dims = {
   scrollBarHeight: 20, // exagerated by 5 px
   minRowHeight: 300, // includes 10px for spacing
 };
+
+let widths = [];
+times(300, (key) => {
+  widths.push(Math.floor(Math.random() * (600 - 400) + 600));
+});
+
 /**
  * The main scroll component
  * @type {Object}
@@ -39,10 +45,11 @@ class Scroll extends Component {
    */
   returnItems(index, key) {
     return (
-      <Card
+      <ScrollCard
         key={key}
         data={this.state.data[index]}
-        height={dims.minRowHeight-10}
+        height={dims.minRowHeight - 10}
+        width={widths[index]}
       />
     );
   }
@@ -53,13 +60,19 @@ class Scroll extends Component {
    */
   render() {
     const headerHeight = this.props.viewportWidth >= 600 ? 64 : 56;
-    const scrollHeight = this.props.viewportHeight
-      -headerHeight-dims.paddingTop;
-    const netScrollHeight = scrollHeight-dims.footerHeight-dims.scrollBarHeight;
-    const rows = Math.floor(netScrollHeight/dims.minRowHeight);
-    console.log('RERENDERED: scrollHeight; ', scrollHeight,
-    ' netScrollHeight : ', netScrollHeight,
-    ' rows: ', rows);
+    const scrollHeight =
+      this.props.viewportHeight - headerHeight - dims.paddingTop;
+    const netScrollHeight =
+      scrollHeight - dims.footerHeight - dims.scrollBarHeight;
+    const rows = Math.floor(netScrollHeight / dims.minRowHeight);
+    console.log(
+      'RERENDERED: scrollHeight; ',
+      scrollHeight,
+      ' netScrollHeight : ',
+      netScrollHeight,
+      ' rows: ',
+      rows
+    );
 
     let cards = [];
     times(rows, (key) => {
@@ -75,14 +88,15 @@ class Scroll extends Component {
 
     return (
       <div className={'parent axis-x'}>
-        <div className='component'
-          style={
-            {width: `${this.props.viewportWidth-dims.paddingLeft}px`,
+        <div
+          className="component"
+          style={{
+            width: `${this.props.viewportWidth - dims.paddingLeft}px`,
             height: `${scrollHeight}px`,
             paddingLeft: `${dims.paddingLeft}px`,
-            paddingTop: `${headerHeight+dims.paddingTop}px`}
-          }
-          >
+            paddingTop: `${headerHeight + dims.paddingTop}px`,
+          }}
+        >
           {cards}
         </div>
       </div>
@@ -94,7 +108,6 @@ Scroll.propTypes = {
   viewportHeight: PropTypes.number.isRequired,
 };
 export default withTheme()(Scroll);
-
 
 /**
  * Given the entire width/height of the window, the component will calculate
@@ -145,7 +158,6 @@ export default withTheme()(Scroll);
 //
 //
 
-
 //
 //   const renderVariableWidthItem1 = (index, key) =>
 //     <div
@@ -169,21 +181,21 @@ export default withTheme()(Scroll);
 //
 //
 //   <div
-  // className={'parent axis-x'}
-  // style={{marginTop: `${this.state.headerHeight + dims.marginTop}px`}}
-  // >
-  //   <div className={'component'}>
-  //   <div
-  //     style={{width: `3000px`,
-  //         height: `${this.props.height}px`, backgroundColor: '#00FF00'}}
-  //   />
-  //
-  //   </div>
-  //
-  //   {/* dummy gap for footer*/}
-  //   <div
-  //     style={{width: `300px`,
-  //         height: `${dims.marginBottom}px`, backgroundColor: '#FF0000'}}
-  //   />
-  //
-  // </div>
+// className={'parent axis-x'}
+// style={{marginTop: `${this.state.headerHeight + dims.marginTop}px`}}
+// >
+//   <div className={'component'}>
+//   <div
+//     style={{width: `3000px`,
+//         height: `${this.props.height}px`, backgroundColor: '#00FF00'}}
+//   />
+//
+//   </div>
+//
+//   {/* dummy gap for footer*/}
+//   <div
+//     style={{width: `300px`,
+//         height: `${dims.marginBottom}px`, backgroundColor: '#FF0000'}}
+//   />
+//
+// </div>
