@@ -4,7 +4,7 @@
  */
 export function generateRandomList() {
   const list = [];
-  const count = 300;
+  const count = 37;
   for (let i = 0; i < count; i++) {
     const random = loremIpsum[i % loremIpsum.length];
     const randoms = [random];
@@ -13,16 +13,22 @@ export function generateRandomList() {
       randoms.push(loremIpsum[(i * j) % loremIpsum.length]);
     }
 
+    const width = Math.floor(Math.random() * (600 - 400) + 450);
+    const height = Math.floor(Math.random() * (600 - 400) + 200);
+
     list.push({
       color: BADGE_COLORS[i % BADGE_COLORS.length],
       index: i,
-      name: NAMES[i % NAMES.length],
+      name: i.toString() + ' ' + random, // NAMES[i % NAMES.length],
       random,
       randomLong: randoms.join(' '),
       size: ROW_HEIGHTS[Math.floor(Math.random() * ROW_HEIGHTS.length)],
+      width: width,
+      height: height,
+      ratio: width / height,
     });
   }
-
+  console.log(list);
   return list;
 }
 
@@ -190,9 +196,9 @@ const loremIpsum = [
   'Etiam ultricies maximus tempus.',
   'Donec dignissim mi ac libero feugiat, vitae lacinia odio viverra.',
   'Curabitur condimentum tellus sit amet neque posuere, condimentum tempus' +
-  'purus eleifend.',
+    'purus eleifend.',
   'Donec tempus, augue id hendrerit pretium, mauris leo congue nulla, ac' +
-  'iaculis erat nunc in dolor.',
+    'iaculis erat nunc in dolor.',
   'Praesent vel lectus venenatis, elementum mauris vitae, ullamcorper nulla.',
   'Maecenas non diam cursus, imperdiet massa eget, pellentesque ex.',
   'Vestibulum luctus risus vel augue auctor blandit.',

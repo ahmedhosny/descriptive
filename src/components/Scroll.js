@@ -5,6 +5,8 @@ import ReactList from 'react-list';
 import {generateRandomList} from '../helpers/utils';
 import ScrollCard from './ScrollCard';
 import times from 'lodash/times';
+import chunk from 'lodash/chunk';
+import nth from 'lodash/nth';
 import './Scroll.css';
 
 const dims = {
@@ -14,19 +16,8 @@ const dims = {
   scrollBarHeight: 20, // exagerated by 5 px
   minCardHeight: 300,
   cardMargin: 20,
+  cardsAtATime: 5,
 };
-
-// temporary widths and heights to simulate images of different aspect ratios.
-let widths = [];
-let heights = [];
-let ratios = [];
-times(300, (key) => {
-  const width = Math.floor(Math.random() * (600 - 400) + 450);
-  const height = Math.floor(Math.random() * (600 - 400) + 200);
-  widths.push(width);
-  heights.push(height);
-  ratios.push(width / height);
-});
 
 /**
  * The main scroll component
@@ -46,19 +37,54 @@ class Scroll extends Component {
   }
 
   /**
+   * Splits data into chunks based on number of rows
+   * @param {array} data incoming data
+   * @param {number} rows number of rows
+   * @return {Array} Array of arrays
+   */
+  formatData(data, rows) {
+    // get rid of leftovers from rectalinear
+    const cut = data.length - data.length % (rows * dims.cardsAtATime);
+    const leftData = data.slice(0, cut);
+    const rightData = data.slice(cut);
+    const formatedData = chunk(leftData, dims.cardsAtATime);
+    let out = [];
+    times(rows, (idx) => {
+      out.push([]);
+    });
+    let x = 0;
+    // for chunks that are rectalinear (left)
+    for (let i = 0; i < formatedData.length; i++) {
+      out[x].push(...formatedData[i]);
+      let newX = x + 1;
+      x = newX >= rows ? 0 : newX;
+    }
+    // for the chunks remianing (right)
+    // then put one by one in each row,
+    x = 0;
+    for (let j = 0; j < rightData.length; j++) {
+      out[x].push(rightData[j]);
+      let newX = x + 1;
+      x = newX >= rows ? 0 : newX;
+    }
+    return out;
+  }
+
+  /**
    * Renders a single card at a time.
    * @param  {Number} index Starts from zero
    * @param  {Number} key   key
+   * @param  {array} data   data for that specific row
    * @param  {Number} netScrollHeight   netScrollHeight
    * @return {ReactElement} A card
    */
-  returnItems(index, key, netScrollHeight) {
+  returnItems(index, key, data, netScrollHeight) {
     return (
       <ScrollCard
         key={key}
-        data={this.state.data[index]}
+        data={data[index]}
         height={netScrollHeight}
-        ratio={ratios[index]}
+        ratio={data[index].ratio}
       />
     );
   }
@@ -86,16 +112,24 @@ class Scroll extends Component {
       rows
     );
 
+    const formatedData = this.formatData(this.state.data, rows);
+
     let cards = [];
-    times(rows, (key) => {
+    times(rows, (rowIdx) => {
       cards.push(
         <ReactList
-          key={key}
+          key={rowIdx}
           axis={'x'}
-          itemRenderer={(index, key, nsh) =>
-            this.returnItems(index, key, parseInt(netScrollHeight / rows, 10))
+          itemRenderer={(index, key, dta, nsh) =>
+            this.returnItems(
+              index,
+              key,
+              formatedData[rowIdx],
+              parseInt(netScrollHeight / rows, 10)
+            )
           }
-          length={this.state.data.length}
+          length={formatedData[rowIdx].length}
+          pageSize={dims.cardsAtATime}
         />
       );
     });
