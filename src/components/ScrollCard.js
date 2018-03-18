@@ -4,11 +4,12 @@ import glamorous from 'glamorous';
 import Card, {CardContent, CardMedia} from 'material-ui/Card'; // CardActions,
 import ScrollLabel from './ScrollLabel';
 import ScrollButton from './ScrollButton';
+import MetaCategory from './MetaCategory';
 import Typography from 'material-ui/Typography';
 import times from 'lodash/times';
 
 const dims = {
-  cardNonMediaHeight: 159,
+  cardNonMediaHeight: 189,
 };
 const SDiv = glamorous.div({
   marginRight: 20,
@@ -23,15 +24,16 @@ const SCardContentLabels = glamorous(CardContent)({
   paddingBottom: '0 !important',
   display: '-webkit-box',
   position: 'relative',
-});
-const SCardContentText = glamorous(CardContent)({
-  backgroundColor: '#ff0000',
+  paddingTop: '46px !important',
 });
 const SButtonsDiv = glamorous.div({
   position: 'absolute',
   backgroundColor: '#696969',
   top: -20,
   right: 16,
+});
+const SCardContentText = glamorous(CardContent)({
+  backgroundColor: '#ff0000',
 });
 
 /**
@@ -78,14 +80,17 @@ class ScrollCard extends Component {
             }}
           />
           <SCardContentLabels>
+            <MetaCategory text={'applications'} />
             {labels}
             <SButtonsDiv>{buttons}</SButtonsDiv>
           </SCardContentLabels>
           <SCardContentText>
-            <Typography variant="headline" component="h2">
+            <Typography variant="headline" component="h2" noWrap={true}>
               {this.props.data.name}
             </Typography>
-            <Typography component="p">{this.props.data.random}</Typography>
+            <Typography noWrap={true} color="textSecondary" component="p">
+              {this.props.data.random}
+            </Typography>
           </SCardContentText>
         </Card>
       </SDiv>

@@ -1,5 +1,5 @@
 import {createMuiTheme} from 'material-ui/styles';
-import {teal} from 'material-ui/colors';
+import {grey} from 'material-ui/colors';
 
 let _theme = {
   direction: 'ltr',
@@ -18,7 +18,7 @@ let _theme = {
       lightWhite: 'rgba(255, 255, 255, 0.54)',
     },
     type: 'light',
-    primary: teal,
+    primary: grey,
     secondary: {
       '50': '#fce4ec',
       '100': '#f8bbd0',
@@ -347,7 +347,7 @@ let _theme = {
 
 // Additons
 _theme['root'] = {
-  background: '#d3d3d3',
+  background: '#eeeeee',
   height: '100%',
   flexGrow: 1,
 };

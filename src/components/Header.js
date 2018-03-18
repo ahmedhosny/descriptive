@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {withStyles} from 'material-ui/styles';
+import glamorous from 'glamorous';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
+// import theme from '../helpers/theme';
+
+const SAppBar = glamorous(AppBar)({
+  backgroundColor: '#424242 !important',
+  color: '#fff !important',
+});
 
 const styles = {
   root: {
@@ -32,13 +39,14 @@ class Header extends Component {
    */
   render() {
     return (
-      <div style={styles.root}>
-        <AppBar position="fixed">
+      <div>
+        <SAppBar position="fixed">
           <Toolbar>
             <IconButton
               style={styles.menuButton}
               color="inherit"
-              aria-label="Menu">
+              aria-label="Menu"
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" style={styles.flex}>
@@ -46,7 +54,7 @@ class Header extends Component {
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
-        </AppBar>
+        </SAppBar>
       </div>
     );
   }

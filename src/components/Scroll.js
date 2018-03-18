@@ -6,7 +6,6 @@ import {generateRandomList} from '../helpers/utils';
 import ScrollCard from './ScrollCard';
 import times from 'lodash/times';
 import chunk from 'lodash/chunk';
-import nth from 'lodash/nth';
 import './Scroll.css';
 
 const dims = {
